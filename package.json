@@ -1,0 +1,42 @@
+{
+  "name": "lazyscripts",
+  "title": "LazyScripts",
+  "version": "0.1.0",
+  "description": "Delay script loading until user interaction.",
+  "keywords": [
+    "lazy",
+    "delay",
+    "loading"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Gene Alyson Fortunado Torcende",
+    "email": "genealyson.torcende@gmail.com"
+  },
+  "files": [
+    "/dist"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kermage/lazyscripts.git"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "typescript": "^5.3.3",
+    "unbuild": "^2.0.0"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "prepublishOnly": "npm run build"
+  }
+}
