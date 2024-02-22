@@ -1,5 +1,21 @@
 const SELECTORS = 'script[data-src]';
 
+const scriptSorter = ( a: Element, b: Element ) => {
+	const isDefer = ( element: Element ) => {
+		return null !== element.getAttribute( 'defer' );
+	}
+
+	if ( isDefer( a ) ) {
+		if ( isDefer( b ) ) {
+			return 0;
+		}
+
+		return 1;
+	}
+
+	return isDefer( b ) ? -1 : 0;
+}
+
 const loadScript = async ( element: Element ): Promise<Event> => {
 	return new Promise( ( executor: EventListener ) => {
 		const source = element.getAttribute( 'data-src' )!;
@@ -11,7 +27,9 @@ const loadScript = async ( element: Element ): Promise<Event> => {
 }
 
 export const loadScripts = async () => {
-	for ( const element of document.querySelectorAll( SELECTORS ) ) {
+	const allScripts = document.querySelectorAll( SELECTORS );
+
+	for ( const element of Array.from( allScripts ).sort( scriptSorter ) ) {
 		await loadScript( element );
 	}
 }
