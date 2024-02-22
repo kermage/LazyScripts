@@ -1,4 +1,5 @@
 import { EVENT_TYPES, TARGET_EVENTS } from './constants';
+import { loadScripts } from './loader';
 
 export default class LazyScripts {
 	listener: EventListener;
@@ -30,16 +31,8 @@ export default class LazyScripts {
 
 	trigger() {
 		this.stop();
-		this.load();
+		loadScripts().then();
 		this.dispatch();
-	}
-
-
-	load() {
-		document.querySelectorAll( 'script[data-src]' ).forEach( ( element ): void => {
-			element.setAttribute( 'src', element.getAttribute( 'data-src' )! );
-			element.removeAttribute( 'data-src' );
-		} )
 	}
 
 
