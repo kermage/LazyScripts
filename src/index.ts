@@ -44,8 +44,18 @@ export default class LazyScripts {
 
 
 	dispatch() {
-		TARGET_EVENTS.forEach( ( [ target, type ] ) => {
-			setTimeout(() => target.dispatchEvent( new Event( type ) ), 50 );
+		const originalMethods = Object.values( TARGET_EVENTS ).map( ( value ) => value[0].addEventListener );
+
+		TARGET_EVENTS.forEach( ( [ target, types ], index ) => {
+			target.addEventListener = function() {
+				arguments[0] = `lazy-${ arguments[0] }`;
+
+				originalMethods[ index ].apply( target, arguments as unknown as Parameters<typeof target.addEventListener> );
+			}
+
+			types.forEach( type => {
+				setTimeout(() => target.dispatchEvent( new Event( `lazy-${ type }` ) ), 50 );
+			} )
 		} );
 	}
 }

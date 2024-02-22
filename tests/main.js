@@ -1,17 +1,10 @@
-console.log( 'main.js', 'LOADED!' );
+function customLogger( event ) {
+	console.log( 'Triggered', event.type, event.currentTarget.toString() );
+}
 
-document.addEventListener( 'DOMContentLoaded', function() {
-	console.log( 'Triggered', document, '"DOMContentLoaded"' );
-} );
+console.log( document.currentScript.src, 'LOADED!' );
 
-window.addEventListener( 'DOMContentLoaded', function() {
-	console.log( 'Triggered', window, '"DOMContentLoaded"' );
-} );
-
-window.addEventListener( 'load', function() {
-	console.log( 'Triggered', window, '"load"' );
-} );
-
-window.addEventListener( 'pageshow', function() {
-	console.log( 'Triggered', window, '"pageshow"' );
-} );
+document.addEventListener( 'DOMContentLoaded', customLogger );
+window.addEventListener( 'DOMContentLoaded', customLogger );
+window.addEventListener( 'load', customLogger );
+window.addEventListener( 'pageshow', customLogger );

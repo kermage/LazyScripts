@@ -7,11 +7,14 @@
 <body>
 	<h1>Hello World!</h1>
 
-	<script type="text/javascript" data-src="main.js"></script>
+	<script type="text/javascript" data-src="vendor1.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+	<script type="text/javascript" data-src="vendor2.js"></script>
 	<script type="module">
 		import LazyScripts from '../dist/index.mjs';
 
 		LazyScripts.init();
 	</script>
+	<script type="text/javascript" data-src="vendor3.js"></script>
 </body>
 </html>

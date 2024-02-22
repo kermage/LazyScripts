@@ -7,9 +7,19 @@ export const EVENT_TYPES = [
 	'wheel'
 ];
 
-export const TARGET_EVENTS: [ EventTarget, string ][] = [
-	[ document, 'DOMContentLoaded' ],
-	[ window, 'DOMContentLoaded' ],
-	[ window, 'load' ],
-	[ window, 'pageshow' ],
+export const TARGET_EVENTS: [ EventTarget, string[] ][] = [
+	[
+		document,
+		[
+			'DOMContentLoaded',
+		],
+	],
+	[
+		window,
+		[
+			'DOMContentLoaded',
+			'load',
+			'pageshow',
+		],
+	],
 ];
