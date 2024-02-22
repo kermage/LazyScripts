@@ -19,4 +19,6 @@ export const dispatchCustomEvents = () => {
 			setTimeout( () => target.dispatchEvent( new Event( namespaced( type ) ) ), 50 );
 		} )
 	} );
+
+	window.dispatchEvent( new CustomEvent( 'lazyscripts:loaded', { bubbles: true, cancelable: true } ) );
 }

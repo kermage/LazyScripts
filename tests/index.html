@@ -36,6 +36,10 @@
 		document.body.addEventListener( 'htmx:load', function() {
 			console.log( 'HTMX', 'LOADED!' );
 		} );
+
+		window.addEventListener( 'lazyscripts:loaded', function() {
+			console.log( 'LazyScripts', 'LOADED!' );
+		} );
 	</script>
 </body>
 </html>
