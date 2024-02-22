@@ -1,5 +1,5 @@
 import { EVENT_TYPES, TARGET_EVENTS } from './constants';
-import { loadScripts } from './loader';
+import { preconnectExternals, loadScripts } from './loader';
 
 export default class LazyScripts {
 	listener: EventListener;
@@ -19,6 +19,8 @@ export default class LazyScripts {
 		EVENT_TYPES.forEach( ( type ) => {
 			window.addEventListener( type, this.listener, { passive: true } );
 		} );
+
+		document.addEventListener( 'DOMContentLoaded', preconnectExternals );
 	}
 
 

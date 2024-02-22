@@ -15,3 +15,34 @@ export const loadScripts = async () => {
 		await loadScript( element );
 	}
 }
+
+const resourceHint = ( href: string ) => {
+	const link = document.createElement( 'link' );
+
+	link.href = href;
+
+	link.rel = 'preconnect';
+
+	document.head.appendChild( link );
+}
+
+const getOrigin = ( url: string ) => {
+	let origin = '';
+
+	try {
+		origin = ( new URL( url ) ).origin;
+	} catch {}
+
+	return origin;
+}
+
+export const preconnectExternals = async () => {
+	for ( const element of document.querySelectorAll( SELECTORS ) ) {
+		const source = element.getAttribute( 'data-src' )!;
+		const origin = getOrigin( source );
+
+		if ( origin && origin !== location.origin ) {
+			resourceHint( origin );
+		}
+	}
+}
