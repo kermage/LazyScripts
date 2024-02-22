@@ -1,8 +1,5 @@
 import { TARGET_EVENTS } from './constants';
-
-const namespaced = ( type: string ) => {
-	return `lazy-${ type }`;
-}
+import { namespaced } from './utilities';
 
 export const interceptRegisters = () => {
 	const originalMethods = Object.values( TARGET_EVENTS ).map( ( value ) => value[0].addEventListener );
