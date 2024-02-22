@@ -1,6 +1,6 @@
-import { EVENT_TYPES } from './constants';
 import { interceptRegisters, dispatchCustomEvents } from './events';
 import { preconnectExternals, loadScripts } from './loader';
+import { userInteraction } from './listeners';
 
 export default class LazyScripts {
 	listener: EventListener;
@@ -12,28 +12,18 @@ export default class LazyScripts {
 
 
 	static init() {
-		return ( new LazyScripts() ).start();
+		return ( new LazyScripts() ).init();
 	}
 
 
-	start() {
-		EVENT_TYPES.forEach( ( type ) => {
-			window.addEventListener( type, this.listener, { passive: true } );
-		} );
-
+	init() {
+		userInteraction( 'add', this.listener );
 		document.addEventListener( 'DOMContentLoaded', preconnectExternals );
 	}
 
 
-	stop() {
-		EVENT_TYPES.forEach( ( type ) => {
-			window.removeEventListener( type, this.listener );
-		} );
-	}
-
-
 	async trigger() {
-		this.stop();
+		userInteraction( 'remove', this.listener );
 		interceptRegisters();
 		await loadScripts();
 		dispatchCustomEvents();
