@@ -1,5 +1,5 @@
 {
-  "name": "lazyscripts",
+  "name": "lazyscripts.js",
   "title": "LazyScripts",
   "version": "0.1.0",
   "description": "Delay script loading until user interaction.",

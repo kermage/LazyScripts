@@ -2,7 +2,7 @@
 
 ## Usage
 
-`npm install lazyscripts`
+`npm install lazyscripts.js`
 
 ### Example
 
