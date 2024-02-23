@@ -21,9 +21,10 @@ export const interceptRegisters = () => {
 
 export const dispatchCustomEvents = () => {
 	TARGET_EVENTS.forEach( ( [ target, types ] ) => {
-		types.forEach( type => {
-			setTimeout( () => target.dispatchEvent( new Event( namespaced( type ) ) ), 50 );
-		} )
+		types.forEach( ( type ) => {
+			( new Promise( ( resolve ) => requestAnimationFrame( resolve ) ) ).then();
+			target.dispatchEvent( new Event( namespaced( type ) ) );
+		} );
 	} );
 
 	window.dispatchEvent( new CustomEvent( 'lazyscripts:loaded', { bubbles: true, cancelable: true } ) );
