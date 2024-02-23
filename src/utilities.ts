@@ -28,7 +28,10 @@ export const getOrigin = ( url: string ) => {
 
 export const scriptSorter = ( a: Element, b: Element ) => {
 	const isDefer = ( element: Element ) => {
-		return null !== element.getAttribute( 'defer' );
+		return (
+			null !== element.getAttribute( 'defer' ) ||
+			'module' === element.getAttribute( 'data-type' )
+		);
 	}
 
 	if ( isDefer( a ) ) {

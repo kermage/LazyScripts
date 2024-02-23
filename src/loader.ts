@@ -5,8 +5,9 @@ const SELECTORS = `script[type=${ identifier( true ).slice( 0, -1 ) }]`;
 const loadScript = async ( element: Element ): Promise<Event> => {
 	return new Promise( ( executor: EventListener ) => {
 		const source = element.getAttribute( 'data-src' )!;
+		const type = element.getAttribute( 'data-type' )!;
 
-		element.setAttribute( 'type', 'text/javascript' );
+		element.setAttribute( 'type', type || 'text/javascript' );
 
 		if ( source ) {
 			element.setAttribute( 'src', source );
@@ -15,6 +16,10 @@ const loadScript = async ( element: Element ): Promise<Event> => {
 			const scriptData = decodeURIComponent( encodeURIComponent( element.textContent?.toString() || '' ) );
 
 			element.setAttribute( 'src', `data:text/javascript;base64, ${ btoa( scriptData ) }` );
+		}
+
+		if ( type ) {
+			element.removeAttribute( 'data-type' );
 		}
 
 		element.addEventListener( 'load', executor );
