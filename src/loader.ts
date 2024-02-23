@@ -35,10 +35,10 @@ const loadScript = async ( element: Element ): Promise<void> => {
 				element.removeAttribute( 'type' );
 			}
 
-			executor()
+			executor();
 		} );
-	} )
-}
+	} );
+};
 
 export const loadScripts = async () => {
 	const allScripts = document.querySelectorAll( SELECTORS );
@@ -46,7 +46,7 @@ export const loadScripts = async () => {
 	for ( const element of Array.from( allScripts ).sort( scriptSorter ) ) {
 		await loadScript( element );
 	}
-}
+};
 
 const resourceHint = ( href: string ) => {
 	const link = document.createElement( 'link' );
@@ -56,7 +56,7 @@ const resourceHint = ( href: string ) => {
 	link.rel = 'preconnect';
 
 	return document.head.appendChild( link );
-}
+};
 
 export const preconnectExternals = async () => {
 	const hinted: HTMLLinkElement[] = [];
@@ -73,4 +73,4 @@ export const preconnectExternals = async () => {
 	window.addEventListener( `${ identifier( true ) }:loaded`, () => {
 		hinted.forEach( ( link ) => link.remove() );
 	} );
-}
+};

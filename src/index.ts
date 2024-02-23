@@ -8,7 +8,7 @@ export default class LazyScripts {
 
 
 	constructor() {
-		this.listener = this.trigger.bind( this )
+		this.listener = this.trigger.bind( this );
 	}
 
 

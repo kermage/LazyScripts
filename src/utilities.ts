@@ -2,17 +2,17 @@ export const identifier = ( lowercase: boolean = false ) => {
 	const value = 'LazyScripts';
 
 	return lowercase ? value.toLowerCase() : value;
-}
+};
 
 
 export const warn = ( message: string ) => {
 	console.warn( `[${ identifier() }] ${ message }` );
-}
+};
 
 
 export const namespaced = ( type: string ) => {
 	return `${ identifier() }-${ type }`;
-}
+};
 
 
 export const getOrigin = ( url: string ) => {
@@ -23,7 +23,7 @@ export const getOrigin = ( url: string ) => {
 	} catch {}
 
 	return origin;
-}
+};
 
 
 export const scriptSorter = ( a: Element, b: Element ) => {
@@ -32,7 +32,7 @@ export const scriptSorter = ( a: Element, b: Element ) => {
 			null !== element.getAttribute( 'defer' ) ||
 			'module' === element.getAttribute( 'data-type' )
 		);
-	}
+	};
 
 	if ( isDefer( a ) ) {
 		if ( isDefer( b ) ) {
@@ -43,4 +43,4 @@ export const scriptSorter = ( a: Element, b: Element ) => {
 	}
 
 	return isDefer( b ) ? -1 : 0;
-}
+};

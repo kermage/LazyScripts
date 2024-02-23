@@ -34,14 +34,14 @@ describe( 'scriptSorter', () => {
 		}
 
 		return element;
-	}
+	};
 
 	const transformedScripts = ( array: [ string, string | undefined ][] ) => {
 		return array
 			.map( ( [ name, strategy ] ) => createScript( name, strategy ) )
 			.sort( scriptSorter )
 			.map( ( script ) => script.getAttribute( 'src' ) );
-	}
+	};
 
 	it( 'should return correct order', ( { expect } ) => {
 		expect( transformedScripts( [
