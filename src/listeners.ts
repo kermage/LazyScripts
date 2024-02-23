@@ -9,3 +9,13 @@ export const userInteraction = ( mode: Mode, listener: EventListener ) => {
 		window[ method]( type, listener, { passive: true } );
 	} );
 }
+
+export const domNotLoading = async (): Promise<void> => {
+	return new Promise( ( resolve ) => {
+		if ( 'loading' !== document.readyState ) {
+			resolve();
+		} else {
+			document.addEventListener( 'DOMContentLoaded', () => resolve() );
+		}
+	} );
+}

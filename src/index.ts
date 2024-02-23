@@ -1,6 +1,6 @@
 import { interceptRegisters, dispatchCustomEvents } from './events';
 import { preconnectExternals, loadScripts } from './loader';
-import { userInteraction } from './listeners';
+import { userInteraction, domNotLoading } from './listeners';
 
 export default class LazyScripts {
 	listener: EventListener;
@@ -24,6 +24,7 @@ export default class LazyScripts {
 
 	async trigger() {
 		userInteraction( 'remove', this.listener );
+		await domNotLoading();
 		interceptRegisters();
 		await loadScripts();
 		dispatchCustomEvents();
