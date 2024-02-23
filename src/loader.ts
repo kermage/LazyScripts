@@ -1,14 +1,22 @@
 import { identifier, getOrigin, scriptSorter } from './utilities';
 
-const SELECTORS = `script[type=${ identifier( true ).slice( 0, -1 ) }][data-src]`;
+const SELECTORS = `script[type=${ identifier( true ).slice( 0, -1 ) }]`;
 
 const loadScript = async ( element: Element ): Promise<Event> => {
 	return new Promise( ( executor: EventListener ) => {
 		const source = element.getAttribute( 'data-src' )!;
 
 		element.setAttribute( 'type', 'text/javascript' );
-		element.setAttribute( 'src', source );
-		element.removeAttribute( 'data-src' );
+
+		if ( source ) {
+			element.setAttribute( 'src', source );
+			element.removeAttribute( 'data-src' );
+		} else {
+			const scriptData = decodeURIComponent( encodeURIComponent( element.textContent?.toString() || '' ) );
+
+			element.setAttribute( 'src', `data:text/javascript;base64, ${ btoa( scriptData ) }` );
+		}
+
 		element.addEventListener( 'load', executor );
 	} )
 }

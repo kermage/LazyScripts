@@ -13,24 +13,18 @@
 
 	<script defer type="lazyscript" data-src="vendor1.js"></script>
 	<script type="text/javascript" src="main.js"></script>
-	<script async type="lazyscript" data-src="vendor2.js"></script>
-	<script type="module">
-		import LazyScripts from '../dist/module.mjs';
-
-		LazyScripts.init();
-	</script>
-	<script defer type="lazyscript" data-src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
-	<script type="lazyscript" data-src="https://unpkg.com/htmx.org@1.9.10"></script>
-	<script type="lazyscript" data-src="vendor3.js"></script>
-	<script>
+	<script type="lazyscript">
 		/* Loading order should be
 		 * - main.js
+		 * - inline // this
 		 * - vendor2.js
 		 * - htmx.js
 		 * - vendor3.js
 		 * - vendor1.js
 		 * - alpinejs.js
 		 */
+
+		console.log( 'Inline script', 'LOADED!' );
 
 		document.addEventListener( 'alpine:init', function() {
 			console.log( 'AlpineJS', 'LOADED!' );
@@ -44,5 +38,14 @@
 			console.log( 'LazyScripts', 'LOADED!' );
 		} );
 	</script>
+	<script async type="lazyscript" data-src="vendor2.js"></script>
+	<script type="module">
+		import LazyScripts from '../dist/module.mjs';
+
+		LazyScripts.init();
+	</script>
+	<script defer type="lazyscript" data-src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+	<script type="lazyscript" data-src="https://unpkg.com/htmx.org@1.9.10"></script>
+	<script type="lazyscript" data-src="vendor3.js"></script>
 </body>
 </html>
