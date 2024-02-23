@@ -13,9 +13,13 @@ const loadScript = async ( element: Element ): Promise<void> => {
 			element.setAttribute( 'src', source );
 			element.removeAttribute( 'data-src' );
 		} else {
-			const scriptData = decodeURIComponent( encodeURIComponent( element.textContent?.toString() || '' ) );
+			const textContent = element.textContent;
 
-			element.setAttribute( 'src', `data:text/javascript;base64, ${ btoa( scriptData ) }` );
+			if ( null !== textContent ) {
+				const encodedData = btoa( decodeURIComponent( encodeURIComponent( textContent ) ) );
+
+				element.setAttribute( 'src', `data:text/javascript;base64, ${ encodedData }` );
+			}
 		}
 
 		if ( type ) {
