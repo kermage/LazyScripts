@@ -2,8 +2,8 @@ import { identifier, getOrigin, scriptSorter } from './utilities';
 
 const SELECTORS = `script[type=${ identifier( true ).slice( 0, -1 ) }]`;
 
-const loadScript = async ( element: Element ): Promise<Event> => {
-	return new Promise( ( executor: EventListener ) => {
+const loadScript = async ( element: Element ): Promise<void> => {
+	return new Promise( ( executor ) => {
 		const source = element.getAttribute( 'data-src' )!;
 		const type = element.getAttribute( 'data-type' )!;
 
@@ -22,7 +22,17 @@ const loadScript = async ( element: Element ): Promise<Event> => {
 			element.removeAttribute( 'data-type' );
 		}
 
-		element.addEventListener( 'load', executor );
+		element.addEventListener( 'load', () => {
+			if ( ! source ) {
+				element.removeAttribute( 'src' );
+			}
+
+			if ( ! type ) {
+				element.removeAttribute( 'type' );
+			}
+
+			executor()
+		} );
 	} )
 }
 
@@ -41,16 +51,22 @@ const resourceHint = ( href: string ) => {
 
 	link.rel = 'preconnect';
 
-	document.head.appendChild( link );
+	return document.head.appendChild( link );
 }
 
 export const preconnectExternals = async () => {
+	const hinted: HTMLLinkElement[] = [];
+
 	for ( const element of document.querySelectorAll( SELECTORS ) ) {
 		const source = element.getAttribute( 'data-src' )!;
 		const origin = getOrigin( source );
 
 		if ( origin && origin !== location.origin ) {
-			resourceHint( origin );
+			hinted.push( resourceHint( origin ) );
 		}
 	}
+
+	window.addEventListener( `${ identifier( true ) }:loaded`, () => {
+		hinted.forEach( ( link ) => link.remove() );
+	} );
 }
