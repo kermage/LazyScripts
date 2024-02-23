@@ -1,5 +1,17 @@
+export const identifier = ( lowercase: boolean = false ) => {
+	const value = 'LazyScripts';
+
+	return lowercase ? value.toLowerCase() : value;
+}
+
+
+export const warn = ( message: string ) => {
+	console.warn( `[${ identifier() }] ${ message }` );
+}
+
+
 export const namespaced = ( type: string ) => {
-	return `lazy-${ type }`;
+	return `${ identifier() }-${ type }`;
 }
 
 

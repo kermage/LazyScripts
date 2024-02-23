@@ -1,12 +1,12 @@
 import { TARGET_EVENTS } from './constants';
-import { namespaced } from './utilities';
+import { identifier, namespaced, warn } from './utilities';
 
 export const interceptRegisters = () => {
 	const originalMethods = Object.values( TARGET_EVENTS ).map( ( value ) => value[0].addEventListener );
 
 	TARGET_EVENTS.forEach( ( [ target ], index ) => {
 		if ( ! target.addEventListener.toString().includes( '[native code]' ) ) {
-			console.warn( `Something else already intercepted the ${ target } event listener.` );
+			warn( `Something else already intercepted the ${ target } event listener.` );
 
 			return;
 		}
@@ -27,5 +27,5 @@ export const dispatchCustomEvents = () => {
 		} );
 	} );
 
-	window.dispatchEvent( new CustomEvent( 'lazyscripts:loaded', { bubbles: true, cancelable: true } ) );
+	window.dispatchEvent( new CustomEvent( `${ identifier( true ) }:loaded`, { bubbles: true, cancelable: true } ) );
 }

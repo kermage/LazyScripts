@@ -1,6 +1,7 @@
 import { interceptRegisters, dispatchCustomEvents } from './events';
 import { preconnectExternals, loadScripts } from './loader';
 import { userInteraction, domNotLoading } from './listeners';
+import { identifier, warn } from './utilities';
 
 export default class LazyScripts {
 	listener: EventListener;
@@ -19,13 +20,13 @@ export default class LazyScripts {
 	init() {
 		const html = document.documentElement;
 
-		if ( html.dataset.lazyscripts ) {
-			console.warn( 'LazyScripts was already initialized.' );
+		if ( html.dataset[ identifier( true ) ] ) {
+			warn( 'Another instance already initialized the page.' );
 
 			return;
 		}
 
-		html.dataset.lazyscripts = 'true';
+		html.dataset[ identifier( true ) ] = 'true';
 
 		userInteraction( 'add', this.listener );
 		document.addEventListener( 'DOMContentLoaded', preconnectExternals );

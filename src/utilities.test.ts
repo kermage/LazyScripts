@@ -5,9 +5,9 @@ import { namespaced, getOrigin, scriptSorter } from './utilities';
 
 describe( 'namespaced', () => {
 	it( 'should return correct strings', ( { expect } ) => {
-		expect( namespaced( 'DOMContentLoaded' ) ).toBe( 'lazy-DOMContentLoaded' );
-		expect( namespaced( 'load' ) ).toBe( 'lazy-load' );
-		expect( namespaced( 'pageshow' ) ).toBe( 'lazy-pageshow' );
+		expect( namespaced( 'DOMContentLoaded' ) ).toBe( 'LazyScripts-DOMContentLoaded' );
+		expect( namespaced( 'load' ) ).toBe( 'LazyScripts-load' );
+		expect( namespaced( 'pageshow' ) ).toBe( 'LazyScripts-pageshow' );
 	} );
 } );
 
