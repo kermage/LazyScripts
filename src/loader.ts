@@ -1,11 +1,12 @@
-import { getOrigin, scriptSorter } from './utilities';
+import { identifier, getOrigin, scriptSorter } from './utilities';
 
-const SELECTORS = 'script[data-src]';
+const SELECTORS = `script[type=${ identifier( true ).slice( 0, -1 ) }][data-src]`;
 
 const loadScript = async ( element: Element ): Promise<Event> => {
 	return new Promise( ( executor: EventListener ) => {
 		const source = element.getAttribute( 'data-src' )!;
 
+		element.setAttribute( 'type', 'text/javascript' );
 		element.setAttribute( 'src', source );
 		element.removeAttribute( 'data-src' );
 		element.addEventListener( 'load', executor );

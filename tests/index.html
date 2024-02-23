@@ -11,17 +11,17 @@
 	<img src="https://placehold.co/19200x10800" alt="">
 	<video src="https://placehold.co/19200x10800.mp4"></video>
 
-	<script defer type="text/javascript" data-src="vendor1.js"></script>
+	<script defer type="lazyscript" data-src="vendor1.js"></script>
 	<script type="text/javascript" src="main.js"></script>
-	<script async type="text/javascript" data-src="vendor2.js"></script>
+	<script async type="lazyscript" data-src="vendor2.js"></script>
 	<script type="module">
 		import LazyScripts from '../dist/module.mjs';
 
 		LazyScripts.init();
 	</script>
-	<script defer data-src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
-	<script data-src="https://unpkg.com/htmx.org@1.9.10"></script>
-	<script type="text/javascript" data-src="vendor3.js"></script>
+	<script defer type="lazyscript" data-src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+	<script type="lazyscript" data-src="https://unpkg.com/htmx.org@1.9.10"></script>
+	<script type="lazyscript" data-src="vendor3.js"></script>
 	<script>
 		/* Loading order should be
 		 * - main.js
