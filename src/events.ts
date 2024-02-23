@@ -5,6 +5,12 @@ export const interceptRegisters = () => {
 	const originalMethods = Object.values( TARGET_EVENTS ).map( ( value ) => value[0].addEventListener );
 
 	TARGET_EVENTS.forEach( ( [ target ], index ) => {
+		if ( ! target.addEventListener.toString().includes( '[native code]' ) ) {
+			console.warn( `Something else already intercepted the ${ target } event listener.` );
+
+			return;
+		}
+
 		target.addEventListener = function() {
 			arguments[0] = namespaced( arguments[0] );
 
