@@ -47,18 +47,40 @@ const loadScript = async ( element: Element ): Promise<void> => {
 
 export const loadScripts = async () => {
 	const allScripts = document.querySelectorAll( SELECTORS );
+	const hinted: HTMLLinkElement[] = [];
+
+	for ( const element of Array.from( allScripts ).sort( scriptSorter ) ) {
+		const source = element.getAttribute( 'data-src' );
+
+		if ( ! source ) {
+			continue;
+		}
+
+		const crossorigin = element.getAttribute( 'crossorigin' )
+			|| ( 'module' === element.getAttribute( 'data-type' ) );
+
+		hinted.push( resourceHint( source, crossorigin, 'preload' ) );
+	}
+
+	window.addEventListener( `${ identifier( true ) }:loaded`, () => {
+		hinted.forEach( ( link ) => link.remove() );
+	} );
 
 	for ( const element of Array.from( allScripts ).sort( scriptSorter ) ) {
 		await loadScript( element );
 	}
 };
 
-const resourceHint = ( href: string, crossorigin: string | boolean ) => {
+const resourceHint = ( href: string, crossorigin: string | boolean, rel: string ) => {
 	const link = document.createElement( 'link' );
 
 	link.href = href;
 
-	link.rel = 'preconnect';
+	link.rel = rel;
+
+	if ( 'preload' === rel ) {
+		link.as = 'script';
+	}
 
 	if ( crossorigin ) {
 		link.crossOrigin = crossorigin.toString();
@@ -78,7 +100,7 @@ export const preconnectExternals = async () => {
 			const crossorigin = element.getAttribute( 'crossorigin' )
 				|| ( 'module' === element.getAttribute( 'data-type' ) );
 
-			hinted.push( resourceHint( origin, crossorigin ) );
+			hinted.push( resourceHint( origin, crossorigin, 'preconnect' ) );
 		}
 	}
 
