@@ -26,6 +26,11 @@ const loadScript = async ( element: Element ): Promise<void> => {
 			element.removeAttribute( 'data-type' );
 		}
 
+		element.addEventListener( 'error', () => {
+			console.error( `[${ identifier() }] Failed loading the script.`, element );
+			executor();
+		} );
+
 		element.addEventListener( 'load', () => {
 			if ( ! source ) {
 				element.removeAttribute( 'src' );
