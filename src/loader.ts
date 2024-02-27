@@ -48,12 +48,16 @@ export const loadScripts = async () => {
 	}
 };
 
-const resourceHint = ( href: string ) => {
+const resourceHint = ( href: string, crossorigin: string | boolean ) => {
 	const link = document.createElement( 'link' );
 
 	link.href = href;
 
 	link.rel = 'preconnect';
+
+	if ( crossorigin ) {
+		link.crossOrigin = crossorigin.toString();
+	}
 
 	return document.head.appendChild( link );
 };
@@ -66,7 +70,10 @@ export const preconnectExternals = async () => {
 		const origin = getOrigin( source );
 
 		if ( origin && origin !== location.origin ) {
-			hinted.push( resourceHint( origin ) );
+			const crossorigin = element.getAttribute( 'crossorigin' )
+				|| ( 'module' === element.getAttribute( 'data-type' ) );
+
+			hinted.push( resourceHint( origin, crossorigin ) );
 		}
 	}
 
