@@ -1,10 +1,11 @@
 import { interceptRegisters, dispatchCustomEvents } from './events';
 import { preconnectExternals, loadScripts } from './loader';
 import { userInteraction, domNotLoading } from './listeners';
-import { identifier, warn } from './utilities';
+import { identifier, namespaced, warn } from './utilities';
 
 export default class LazyScripts {
 	listener: EventListener;
+	persisted: boolean | undefined;
 
 
 	constructor() {
@@ -30,6 +31,13 @@ export default class LazyScripts {
 
 		userInteraction( 'add', this.listener );
 		document.addEventListener( 'DOMContentLoaded', preconnectExternals );
+		window.addEventListener( 'pageshow', ( event ) => {
+			if ( undefined !== this.persisted ) {
+				window.dispatchEvent( new Event( namespaced( 'pageshow' ) ) )
+			}
+
+			this.persisted = event.persisted;
+		} );
 	}
 
 
