@@ -48,6 +48,10 @@
 		jQuery( document ).ready( function () {
 			console.log( 'jQuery', 'READY!' );
 		} );
+
+		jQuery( window ).on( 'load', function () {
+			console.log( 'jQuery', 'LOADED!' );
+		} );
 	</script>
 	<script async type="lazyscript" data-src="http://unknown.site/get.js"></script>
 	<script async type="lazyscript" data-src="vendor2.js"></script>

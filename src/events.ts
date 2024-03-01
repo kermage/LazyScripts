@@ -29,6 +29,17 @@ export const interceptRegisters = () => {
 				document.addEventListener( namespaced( 'DOMContentLoaded' ), () => callback.bind( document )( value ) );
 			};
 
+			const originalOn = value.fn.on;
+			const eventName = ( type: string ) => 'load' === type ? namespaced( type ) : type;
+
+			value.fn.on = function () {
+				if ( window === this[ 0 ] ) {
+					arguments[ 0 ] = eventName( arguments[ 0 ] );
+				}
+
+				originalOn.apply( this, arguments as unknown as Parameters<typeof originalOn> );
+			};
+
 			jQueryHolder = value;
 		}
 	} );
