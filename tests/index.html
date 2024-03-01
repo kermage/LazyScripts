@@ -52,6 +52,19 @@
 		jQuery( window ).on( 'load', function () {
 			console.log( 'jQuery', 'LOADED!' );
 		} );
+
+		jQuery( window ).on( 'custom:load load click', function ( event ) {
+			console.log( 'jQuery', 'space separated', event.type );
+		} );
+
+		jQuery( window ).on( {
+			'load': function ( event ) {
+				console.log( 'jQuery', 'object', event.type );
+			},
+			'custom:load load click': function ( event ) {
+				console.log( 'jQuery', 'object spaced', event.type );
+			},
+		} );
 	</script>
 	<script async type="lazyscript" data-src="http://unknown.site/get.js"></script>
 	<script async type="lazyscript" data-src="vendor2.js"></script>

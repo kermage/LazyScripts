@@ -30,11 +30,25 @@ export const interceptRegisters = () => {
 			};
 
 			const originalOn = value.fn.on;
-			const eventName = ( type: string ) => 'load' === type ? namespaced( type ) : type;
+			const eventName = ( event: string ) => {
+				return event.split( ' ' ).map( ( type ) => {
+					return 'load' === type ? namespaced( type ) : type;
+				} ).join( ' ' );
+			};
 
 			value.fn.on = function () {
 				if ( window === this[ 0 ] ) {
-					arguments[ 0 ] = eventName( arguments[ 0 ] );
+					if ( 'string' === typeof arguments[ 0 ] ) {
+						arguments[ 0 ] = eventName( arguments[ 0 ] );
+					} else if ( 'object' === typeof arguments[ 0 ] ) {
+						Object.keys( arguments[ 0 ] ).forEach( ( key ) => {
+							const event = arguments[ 0 ][ key ];
+
+							delete arguments[ 0 ][ key ];
+
+							arguments[ 0 ][ eventName( key ) ] = event;
+						} );
+					}
 				}
 
 				originalOn.apply( this, arguments as unknown as Parameters<typeof originalOn> );
