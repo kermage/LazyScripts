@@ -19,6 +19,19 @@ export const interceptRegisters = () => {
 			originalMethods[ index ].apply( target, arguments as unknown as Parameters<typeof target.addEventListener> );
 		};
 	} );
+
+	let jQueryHolder: undefined;
+
+	Object.defineProperty( window, 'jQuery', {
+		get: () => jQueryHolder,
+		set: ( value ) => {
+			value.fn.ready = ( callback: CallableFunction ) => {
+				document.addEventListener( namespaced( 'DOMContentLoaded' ), () => callback.bind( document )( value ) );
+			};
+
+			jQueryHolder = value;
+		}
+	} );
 };
 
 export const dispatchCustomEvents = () => {

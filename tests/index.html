@@ -15,6 +15,7 @@
 	<script type="lazyscript" data-type="module">
 		console.log( 'Module', 'LOADED!' );
 	</script>
+	<script type="lazyscript" data-src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script defer type="lazyscript" data-src="vendor1.js"></script>
 	<script type="text/javascript" src="main.js"></script>
 	<script type="lazyscript"></script>
@@ -42,6 +43,10 @@
 
 		window.addEventListener( 'lazyscripts:loaded', function() {
 			console.log( 'LazyScripts', 'LOADED!' );
+		} );
+
+		jQuery( document ).ready( function () {
+			console.log( 'jQuery', 'READY!' );
 		} );
 	</script>
 	<script async type="lazyscript" data-src="http://unknown.site/get.js"></script>
