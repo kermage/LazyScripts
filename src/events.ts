@@ -25,7 +25,7 @@ export const interceptRegisters = () => {
 	Object.defineProperty( window, 'jQuery', {
 		get: () => jQueryHolder,
 		set: ( value ) => {
-			value.fn.ready = ( callback: CallableFunction ) => {
+			value.fn.ready = value.fn.init.prototype.ready = ( callback: CallableFunction ) => {
 				document.addEventListener( namespaced( 'DOMContentLoaded' ), () => callback.bind( document )( value ) );
 			};
 
@@ -36,7 +36,7 @@ export const interceptRegisters = () => {
 				} ).join( ' ' );
 			};
 
-			value.fn.on = function () {
+			value.fn.on = value.fn.init.prototype.on = function () {
 				if ( window === this[ 0 ] ) {
 					if ( 'string' === typeof arguments[ 0 ] ) {
 						arguments[ 0 ] = eventName( arguments[ 0 ] );
@@ -51,7 +51,7 @@ export const interceptRegisters = () => {
 					}
 				}
 
-				originalOn.apply( this, arguments as unknown as Parameters<typeof originalOn> );
+				return originalOn.apply( this, arguments as unknown as Parameters<typeof originalOn> );
 			};
 
 			jQueryHolder = value;
