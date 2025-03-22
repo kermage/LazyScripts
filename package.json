@@ -16,9 +16,6 @@
   "files": [
     "/dist"
   ],
-  "main": "dist/module.cjs",
-  "module": "dist/module.mjs",
-  "types": "dist/module.d.ts",
   "browser": "dist/cdn.min.js",
   "unpkg": "dist/cdn.min.js",
   "repository": {
@@ -28,8 +25,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/module.mjs",
-      "require": "./dist/module.cjs"
+      "import": {
+        "types": "./dist/module.d.mts",
+        "default": "./dist/module.mjs"
+      },
+      "require": {
+        "types": "./dist/module.d.cts",
+        "default": "./dist/module.cjs"
+      }
     }
   },
   "devDependencies": {
