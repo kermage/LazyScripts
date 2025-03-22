@@ -1,7 +1,7 @@
 {
   "name": "lazyscripts.js",
   "title": "LazyScripts",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Delay script loading until user interaction.",
   "keywords": [
     "lazy",
