@@ -1,6 +1,6 @@
-import { defineBuildConfig } from 'unbuild'
+import { defineBuildConfig } from 'unbuild';
 
-export default defineBuildConfig( [
+export default defineBuildConfig([
 	{
 		entries: [
 			{
@@ -14,22 +14,22 @@ export default defineBuildConfig( [
 			emitCJS: true,
 			output: {
 				exports: 'named',
-			}
-		}
+			},
+		},
 	},
 	{
-		entries: [ 'src/builds/cdn' ],
+		entries: ['src/builds/cdn'],
 		clean: true,
 		rollup: {
 			output: {
 				name: 'LazyScripts',
 				format: 'umd',
 				entryFileNames: 'cdn.js',
-			}
-		}
+			},
+		},
 	},
 	{
-		entries: [ 'src/builds/cdn' ],
+		entries: ['src/builds/cdn'],
 		clean: true,
 		rollup: {
 			esbuild: {
@@ -39,7 +39,7 @@ export default defineBuildConfig( [
 				name: 'LazyScripts',
 				format: 'umd',
 				entryFileNames: 'cdn.min.js',
-			}
-		}
+			},
+		},
 	},
-] );
+]);

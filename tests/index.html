@@ -1,81 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-	<script src="../dist/cdn.min.js"></script>
-</head>
-<body>
-	<h1>Hello World!</h1>
-	<a href="temp.html">Click here</a>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Title</title>
+		<script src="../dist/cdn.min.js"></script>
+	</head>
+	<body>
+		<h1>Hello World!</h1>
+		<a href="temp.html">Click here</a>
 
-	<img src="https://placehold.co/19200x10800" alt="">
-	<video src="https://placehold.co/19200x10800.mp4"></video>
+		<img src="https://placehold.co/19200x10800" alt="" />
+		<video src="https://placehold.co/19200x10800.mp4"></video>
 
-	<script type="lazyscript" data-type="module">
-		console.log( 'Module', 'LOADED!' );
-	</script>
-	<script type="lazyscript" data-src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script defer type="lazyscript" data-src="vendor1.js"></script>
-	<script type="text/javascript" src="main.js"></script>
-	<script type="lazyscript"></script>
-	<script type="lazyscript">
-		/* Loading order should be
-		 * - main.js
-		 * - inline // this
-		 * - vendor2.js
-		 * - htmx.js
-		 * - vendor3.js
-		 * - module // above
-		 * - vendor1.js
-		 * - alpinejs.js
-		 */
+		<script type="lazyscript" data-type="module">
+			console.log( 'Module', 'LOADED!' );
+		</script>
+		<script type="lazyscript" data-src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+		<script defer type="lazyscript" data-src="vendor1.js"></script>
+		<script type="text/javascript" src="main.js"></script>
+		<script type="lazyscript"></script>
+		<script type="lazyscript">
+			/* Loading order should be
+			 * - main.js
+			 * - inline // this
+			 * - vendor2.js
+			 * - htmx.js
+			 * - vendor3.js
+			 * - module // above
+			 * - vendor1.js
+			 * - alpinejs.js
+			 */
 
-		console.log( 'Inline script', 'LOADED!' );
+			console.log( 'Inline script', 'LOADED!' );
 
-		document.addEventListener( 'alpine:init', function() {
-			console.log( 'AlpineJS', 'LOADED!' );
-		} );
+			document.addEventListener( 'alpine:init', function() {
+				console.log( 'AlpineJS', 'LOADED!' );
+			} );
 
-		document.body.addEventListener( 'htmx:load', function() {
-			console.log( 'HTMX', 'LOADED!' );
-		} );
+			document.body.addEventListener( 'htmx:load', function() {
+				console.log( 'HTMX', 'LOADED!' );
+			} );
 
-		window.addEventListener( 'lazyscripts:loaded', function() {
-			console.log( 'LazyScripts', 'LOADED!' );
-		} );
+			window.addEventListener( 'lazyscripts:loaded', function() {
+				console.log( 'LazyScripts', 'LOADED!' );
+			} );
 
-		jQuery( document ).ready( function () {
-			console.log( 'jQuery', 'READY!' );
-		} );
+			jQuery( document ).ready( function () {
+				console.log( 'jQuery', 'READY!' );
+			} );
 
-		jQuery( window ).on( 'load', function () {
-			console.log( 'jQuery', 'LOADED!' );
-		} );
+			jQuery( window ).on( 'load', function () {
+				console.log( 'jQuery', 'LOADED!' );
+			} );
 
-		jQuery( window ).on( 'custom:load load click', function ( event ) {
-			console.log( 'jQuery', 'space separated', event.type );
-		} );
+			jQuery( window ).on( 'custom:load load click', function ( event ) {
+				console.log( 'jQuery', 'space separated', event.type );
+			} );
 
-		jQuery( window ).on( {
-			'load': function ( event ) {
-				console.log( 'jQuery', 'object', event.type );
-			},
-			'custom:load load click': function ( event ) {
-				console.log( 'jQuery', 'object spaced', event.type );
-			},
-		} );
-	</script>
-	<script async type="lazyscript" data-src="http://unknown.site/get.js"></script>
-	<script async type="lazyscript" data-src="vendor2.js"></script>
-	<script type="module">
-		import LazyScripts from '../dist/module.mjs';
+			jQuery( window ).on( {
+				'load': function ( event ) {
+					console.log( 'jQuery', 'object', event.type );
+				},
+				'custom:load load click': function ( event ) {
+					console.log( 'jQuery', 'object spaced', event.type );
+				},
+			} );
+		</script>
+		<script async type="lazyscript" data-src="http://unknown.site/get.js"></script>
+		<script async type="lazyscript" data-src="vendor2.js"></script>
+		<script type="module">
+			import LazyScripts from '../dist/module.mjs';
 
-		LazyScripts.init();
-	</script>
-	<script defer type="lazyscript" data-src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
-	<script type="lazyscript" data-src="https://unpkg.com/htmx.org@1.9.10"></script>
-	<script type="lazyscript" data-src="vendor3.js"></script>
-	<script type="lazyscript" data-type="module" data-src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.8.8/lazyload.esm.min.js"></script>
-</body>
+			LazyScripts.init();
+		</script>
+		<script defer type="lazyscript" data-src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+		<script type="lazyscript" data-src="https://unpkg.com/htmx.org@1.9.10"></script>
+		<script type="lazyscript" data-src="vendor3.js"></script>
+		<script
+			type="lazyscript"
+			data-type="module"
+			data-src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.8.8/lazyload.esm.min.js"
+		></script>
+	</body>
 </html>

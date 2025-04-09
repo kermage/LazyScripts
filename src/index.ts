@@ -7,42 +7,38 @@ export default class LazyScripts {
 	listener: EventListener;
 	persisted: boolean | undefined;
 
-
 	constructor() {
-		this.listener = this.trigger.bind( this );
+		this.listener = this.trigger.bind(this);
 	}
-
 
 	static init() {
-		return ( new LazyScripts() ).init();
+		return new LazyScripts().init();
 	}
-
 
 	init() {
 		const html = document.documentElement;
 
-		if ( html.dataset[ identifier( true ) ] ) {
-			warn( 'Another instance already initialized the page.' );
+		if (html.dataset[identifier(true)]) {
+			warn('Another instance already initialized the page.');
 
 			return;
 		}
 
-		html.dataset[ identifier( true ) ] = 'true';
+		html.dataset[identifier(true)] = 'true';
 
-		userInteraction( 'add', this.listener );
-		document.addEventListener( 'DOMContentLoaded', preconnectExternals );
-		window.addEventListener( 'pageshow', ( event ) => {
-			if ( undefined !== this.persisted ) {
-				window.dispatchEvent( new Event( namespaced( 'pageshow' ) ) )
+		userInteraction('add', this.listener);
+		document.addEventListener('DOMContentLoaded', preconnectExternals);
+		window.addEventListener('pageshow', (event) => {
+			if (undefined !== this.persisted) {
+				window.dispatchEvent(new Event(namespaced('pageshow')));
 			}
 
 			this.persisted = event.persisted;
-		} );
+		});
 	}
 
-
 	async trigger() {
-		userInteraction( 'remove', this.listener );
+		userInteraction('remove', this.listener);
 		await domNotLoading();
 		interceptRegisters();
 		await loadScripts();
