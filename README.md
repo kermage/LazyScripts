@@ -8,6 +8,8 @@ Insert very early in the `<head>` tag
 <script data-lazyscript src="https://unpkg.com/lazyscripts.js"></script>
 ```
 
+- Optional `data-timeout` attribute that automatically load scripts after the specified number
+
 ### Example
 
 > See `/tests` folder working implementation

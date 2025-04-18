@@ -6,6 +6,7 @@ import { identifier, namespaced, warn } from './utilities';
 export default class LazyScripts {
 	listener: EventListener;
 	persisted: boolean | undefined;
+	timeout: NodeJS.Timeout | undefined;
 
 	constructor() {
 		this.listener = this.trigger.bind(this);
@@ -24,6 +25,12 @@ export default class LazyScripts {
 			return;
 		}
 
+		const script = document.currentScript;
+
+		if (script && script.dataset['timeout']) {
+			this.timeout = setTimeout(() => this.trigger(), Number(script.dataset['timeout']));
+		}
+
 		html.dataset[identifier(true)] = 'true';
 
 		userInteraction('add', this.listener);
@@ -38,6 +45,10 @@ export default class LazyScripts {
 	}
 
 	async trigger() {
+		if (this.timeout) {
+			clearTimeout(this.timeout);
+		}
+
 		userInteraction('remove', this.listener);
 		await domNotLoading();
 		interceptRegisters();
