@@ -65,10 +65,12 @@ add_action(
             $html->remove_attribute( 'src' );
           }
 
-          if ( $type && 'text/javascript' !== $type ) {
-            $html->set_attribute( 'data-type', $type );
+          if ( $type && ! in_array( $type, array( 'text/javascript', 'module' ), true ) ) {
+            // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type
+            continue;
           }
 
+          $html->set_attribute( 'data-type', $type );
           $html->set_attribute( 'type', 'lazyscript' );
         }
 
