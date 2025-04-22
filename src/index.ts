@@ -28,7 +28,11 @@ export default class LazyScripts {
 		const script = document.currentScript;
 
 		if (script && script.dataset['timeout']) {
-			this.timeout = setTimeout(() => this.trigger(), Number(script.dataset['timeout']));
+			const timeout = Number(script.dataset['timeout']) || 0;
+
+			if (timeout) {
+				this.timeout = setTimeout(() => this.trigger(), timeout);
+			}
 		}
 
 		html.dataset[identifier(true)] = 'true';
