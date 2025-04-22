@@ -22,6 +22,11 @@
     "type": "git",
     "url": "git+https://github.com/kermage/lazyscripts.git"
   },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@10.8.1",
   "type": "module",
   "exports": {
     ".": {
